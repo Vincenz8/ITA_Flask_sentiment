@@ -1,78 +1,75 @@
 # Vincenzo Russotto
 
-# librerie builtin
+# standard library
 import string
 import unicodedata
 import os
-
-# classe che contiene l'algoritmo di sentiment analisys
+""" This script contains a class called Russentiment that contain some static methods 
+for calculating polarity of a text written in Italian"""
 class Russentiment:
-    """Classe che restituisce la polarità di un testo
+    """This class calculate the polarity of a text written in Italian
     """
     @staticmethod
-    def testo_pulito(testo: str)->list:
-        """Restituisce la versione tokenizzata e ripulita del test in input
+    def cleaned_text(text: str)->list:
+        """Return the tokenized text without punctuation and numbers
 
         Args:
-            testo (str): testo 
+            text (str): text 
 
         Returns:
-            list: lista tokenizzata del testo
+            list: tokenized text
         """
-        # pulisce il testo dai numeri, punteggiatura
-        # conversione di lettere accentate
-        # rende tutto minuscolo
-        testo = testo.lower()
-        testo = testo.translate(str.maketrans("","",string.punctuation))
-        testo = testo.translate(str.maketrans("","",string.digits))
-        testo = unicodedata.normalize('NFKD', testo).encode('ascii', 'ignore').decode('utf-8', 'ignore')
-        testo = testo.split()
-        return testo
+        text = text.lower()
+        text = text.translate(str.maketrans("","",string.punctuation))
+        text = text.translate(str.maketrans("","",string.digits))
+        text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8', 'ignore')
+        text = text.split()
+        return text
 
     @staticmethod
-    def polarita_testo(testo: list):
-        """Restituisce la polarita del testo
+    def polarity_text(text: list):
+        """Return polarity of the text
 
         Args:
-            testo (list): testo tokenizzato
+            text (list): tokenized text 
 
         Returns:
-            tuple(int, int, int): polarita
+            tuple(int, int, int): polarity
         """
-        # calcola il numero di parole positive, negative, neutrali
-        dataset_parole = open("dataset/pulito.csv","r").read()
-        dataset_parole = dataset_parole.splitlines()
-        p_negative = 0
-        p_positive = 0
-        p_neutrali = 0
-        for parola in testo:
-            for riga in dataset_parole:
-                polarita, p_dataset = riga.split(sep=",")
-                if parola == p_dataset:
-                    if polarita == "positive":
-                        p_positive += 1
-                    elif polarita == "negative":
-                        p_negative += 1
+        # get dataset
+        dataset_words = open("dataset/pulito.csv","r").read()
+        dataset_words = dataset_words.splitlines()
+        # count the number of 
+        # positive, negative, neutral word
+        negative_w = 0
+        positive_w = 0
+        neutral_w = 0
+        for word in text:
+            for raw in dataset_words:
+                polarity, dataset_w = raw.split(sep=",")
+                if word == dataset_w:
+                    if polarity == "positive":
+                        positive_w += 1
+                    elif polarity == "negative":
+                        negative_w += 1
                     else:
-                        p_neutrali+= 1
-        return p_positive, p_negative, p_neutrali
+                        neutral_w+= 1
+        return positive_w, negative_w, neutral_w
 
     @staticmethod
-    def predizione(p_testo: tuple)->str:
-        """Predizione in base alla polarita del testo
+    def pred(text_w: tuple)->int:
+        """Predict based on polarity of the text
 
         Args:
-            p_testo (tuple): polarita del testo
+            text_w (tuple): polarity of the text
 
         Returns:
-            str: predizione
+            int: return 1 if positive or 0 if negative
         """
-        if p_testo[0]>p_testo[1]:
-            return "positiva"
-        elif p_testo[1]>p_testo[0]:
-            return "negativa"
-        else:
-            return ""
+        if text_w[0]>text_w[1]:
+            return 1
+        elif text_w[1]>text_w[0]:
+            return 0
 
 if __name__ == "__main__":
     # test dell'algoritmo
@@ -80,16 +77,18 @@ if __name__ == "__main__":
 
     text = """Questo libro è molto bello ed emozionante"""
     text2 = """Questo libro non mi è piaciuto, era noioso e brutto"""
+    print(f"First text: \n{text}")
+    print(f"Second text: \n{text2}")
+    
+    text = algo.cleaned_text(text)
+    text2 = algo.cleaned_text(text2)
+    text1_w = algo.polarity_text(text)
+    text2_w = algo.polarity_text(text2)
 
-    text = algo.testo_pulito(text)
-    text2 = algo.testo_pulito(text2)
-    p_testo1 = algo.polarita_testo(text)
-    p_testo2 = algo.polarita_testo(text2)
+    print(text1_w)
+    print(text2_w)
 
-    print(p_testo1)
-    print(p_testo2)
-
-    print(f"Il primo testo è {algo.predizione(p_testo1)}")
-    print(f"Il secondo testo è {algo.predizione(p_testo2)}")
+    print(f"The first text is {algo.pred(text1_w)}")
+    print(f"The second text is {algo.pred(text2_w)}")
     
     
