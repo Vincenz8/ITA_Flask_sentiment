@@ -1,0 +1,13 @@
+<html>
+    <head>
+        {% if title %}
+            <title>Russentiment-{{title}}</title>
+        {% else %}
+            <title>Russentiment</title>
+        {% endif %}
+    </head>
+    <body>
+        {% block content %}
+        {% endblock content%}
+    </body>
+</html>

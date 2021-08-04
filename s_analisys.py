@@ -4,8 +4,20 @@
 import string
 import unicodedata
 import os
-""" This script contains a class called Russentiment that contain some static methods 
-for calculating polarity of a text written in Italian"""
+
+"""This script contains a class called Russentiment that contain some static methods 
+for calculating polarity of a text written in Italian
+
+Static methods:
+
+cleaned_text: Return the tokenized text without punctuation and numbers
+
+polarity_text: Return polarity of the text
+
+pred: Predicts based on polarity of the text
+"""
+
+
 class Russentiment:
     """This class calculate the polarity of a text written in Italian
     """
@@ -77,6 +89,7 @@ if __name__ == "__main__":
 
     text = """Questo libro è molto bello ed emozionante"""
     text2 = """Questo libro non mi è piaciuto, era noioso e brutto"""
+    
     print(f"First text: \n{text}")
     print(f"Second text: \n{text2}")
     
