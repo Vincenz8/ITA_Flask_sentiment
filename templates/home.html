@@ -1,4 +1,17 @@
 {% extends "layout.html"%}
+
 {% block content %}
-    <h1>{{text}}</h1>
+    <form action="./result" method="post">
+        <center>
+            <p class="h3">Write a text in Italian</p>
+            <br>
+            <div class="input-group">
+                <textarea class="form-control"name="text"></textarea>
+            </div>
+            <br>
+            <center>
+                <button type="submit" class="btn btn-light">Submit</button>            
+            </center>
+        </center>  
+    </form>
 {% endblock content %}

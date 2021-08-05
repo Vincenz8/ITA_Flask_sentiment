@@ -49,7 +49,7 @@ class Russentiment:
             tuple(int, int, int): polarity
         """
         # get dataset
-        dataset_words = open("dataset/pulito.csv","r").read()
+        dataset_words = open("./s_analisys/dataset/pulito.csv","r").read()
         dataset_words = dataset_words.splitlines()
         # count the number of 
         # positive, negative, neutral word
@@ -84,9 +84,9 @@ class Russentiment:
             return 0
 
 if __name__ == "__main__":
-    # test dell'algoritmo
+    # test 
     algo = Russentiment()
-
+    
     text = """Questo libro è molto bello ed emozionante"""
     text2 = """Questo libro non mi è piaciuto, era noioso e brutto"""
     
