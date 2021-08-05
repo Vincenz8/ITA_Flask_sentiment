@@ -7,16 +7,7 @@ import os
 
 """This script contains a class called Russentiment that contain some static methods 
 for calculating polarity of a text written in Italian
-
-Static methods:
-
-cleaned_text: Return the tokenized text without punctuation and numbers
-
-polarity_text: Return polarity of the text
-
-pred: Predicts based on polarity of the text
 """
-
 
 class Russentiment:
     """This class calculate the polarity of a text written in Italian
@@ -69,8 +60,8 @@ class Russentiment:
         return positive_w, negative_w, neutral_w
 
     @staticmethod
-    def pred(text_w: tuple)->int:
-        """Predict based on polarity of the text
+    def result(text_w: tuple)->int:
+        """Output based on polarity of the text
 
         Args:
             text_w (tuple): polarity of the text
@@ -101,7 +92,7 @@ if __name__ == "__main__":
     print(text1_w)
     print(text2_w)
 
-    print(f"The first text is {algo.pred(text1_w)}")
-    print(f"The second text is {algo.pred(text2_w)}")
+    print(f"The first text is {algo.result(text1_w)}")
+    print(f"The second text is {algo.result(text2_w)}")
     
     
