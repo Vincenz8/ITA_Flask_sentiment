@@ -1,9 +1,9 @@
 # Vincenzo Russotto 
 
-# local library
+# local libraries
 from s_analisys import Russentiment as rs 
 
-# 3rd party library 
+# 3rd party libraries 
 from flask import Flask, render_template, request
 
 app = Flask(__name__)

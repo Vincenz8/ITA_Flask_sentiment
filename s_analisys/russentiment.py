@@ -1,6 +1,6 @@
 # Vincenzo Russotto
 
-# standard library
+# standard libraries
 import string
 import unicodedata
 import os
@@ -49,7 +49,7 @@ class Russentiment:
             tuple(int, int, int): polarity
         """
         # get dataset
-        dataset_words = open("./s_analisys/dataset/pulito.csv","r").read()
+        dataset_words = open("./s_analisys/dataset/words.csv","r").read()
         dataset_words = dataset_words.splitlines()
         # count the number of 
         # positive, negative, neutral word
